@@ -6,13 +6,13 @@ class CreateGamesTable < ActiveRecord::Migration[7.0]
       t.integer :width
       t.integer :height
       t.integer :mines
+      t.jsonb :config, default: {}
       t.timestamps
     end
 
     add_check_constraint :games, 'width > 0', name: 'width_positive'
     add_check_constraint :games, 'height > 0', name: 'height_positive'
     add_check_constraint :games, 'mines > 0', name: 'mines_positive'
-
   end
 
   def down

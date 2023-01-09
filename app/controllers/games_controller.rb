@@ -1,8 +1,10 @@
 class GamesController < ApplicationController
+  include GameHelper
   skip_before_action :verify_authenticity_token
 
   def create
     game = Game.new **create_params
+    game.config = build_configuration(game.width, game.height, game.mines).to_json
     if game.valid?
       game.save!
       redirect_to game_path(game.id)
@@ -11,9 +13,16 @@ class GamesController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @game = Game.find params[:id]
+  end
 
   private
+
+  def show_params
+    params.require 'id'
+    params.permit %i[id]
+  end
 
   def create_params
     params.permit %i[email name width height mines]

@@ -60,3 +60,8 @@ build-iPhoneSimulator/
 db/*.sqlite3
 log/*.log
 tmp/**/*
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
+
+public
