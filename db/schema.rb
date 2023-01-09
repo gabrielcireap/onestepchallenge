@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_100402) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "games", force: :cascade do |t|
+  create_table "games", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "name"
     t.integer "width"
@@ -23,7 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_100402) do
     t.integer "mines"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "uuid", default: -> { "gen_random_uuid()" }
     t.check_constraint "height > 0", name: "height_positive"
     t.check_constraint "mines > 0", name: "mines_positive"
     t.check_constraint "width > 0", name: "width_positive"
