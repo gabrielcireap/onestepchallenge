@@ -9,6 +9,8 @@ class Game < ApplicationRecord
   validates :email, :name, :width, :height, :mines, :config, presence: true
   validates :width, :height, :mines, numericality: { only_integer: true, greater_than: 0 }
 
+  scope :last_ordered, -> (number) { order(created_at: :desc).limit(number) }
+
   def config
     JSON.parse self[:config]
   end
