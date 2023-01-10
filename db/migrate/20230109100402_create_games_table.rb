@@ -6,7 +6,7 @@ class CreateGamesTable < ActiveRecord::Migration[7.0]
       t.integer :width
       t.integer :height
       t.integer :mines
-      t.jsonb :config, default: {}
+      t.column :config, 'integer[][]', default: []
       t.timestamps
     end
 

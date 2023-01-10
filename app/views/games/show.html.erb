@@ -20,5 +20,5 @@
     </div>
   </div>
 
-  <%= render "shared/board", locals: { game: @game } %>
+  <%= render "shared/board", board: reconstruct_board(@game) %>
 </div>

@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_100402) do
     t.integer "width"
     t.integer "height"
     t.integer "mines"
-    t.jsonb "config", default: {}
+    t.integer "config", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.check_constraint "height > 0", name: "height_positive"

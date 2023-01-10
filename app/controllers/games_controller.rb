@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require 'generator'
+
 class GamesController < ApplicationController
   include GameHelper
   skip_before_action :verify_authenticity_token
@@ -7,12 +11,12 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find params[:id]
+    @game = Game.find show_params[:id]
   end
 
   def create
     game = Game.new **create_params
-    game.config = build_configuration(game.width, game.height, game.mines).to_json
+    game.config = Generator.new(game.width, game.height, game.mines).board
     if game.valid?
       game.save!
       redirect_to game_path(game.id)
@@ -24,7 +28,7 @@ class GamesController < ApplicationController
   private
 
   def show_params
-    params.require 'id'
+    params.require('id')
     params.permit %i[id]
   end
 
