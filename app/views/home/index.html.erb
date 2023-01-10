@@ -29,36 +29,7 @@
   <div class="flex flex-col gap-y-1 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <h2 class="mb-2"><strong>Last 10 games</strong></h2>
 
-    <table class="border-spacing-2">
-      <thead>
-      <tr>
-        <th>Item</th>
-        <th></th>
-        <th>Board Name</th>
-        <th>User Email</th>
-        <th>Created At</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @games.each_with_index do |game, index| %>
-        <tr>
-          <td class="p-1">
-            <%= index + 1 %>
-          </td>
-          <td class="p-2"></td>
-          <td class="p-1">
-            <%= link_to game.name, game, class: 'underline' %>
-          </td>
-          <td class="p-1">
-            <%= game.email %>
-          </td>
-          <td class="p-1">
-            <%= local_time(game.created_at, :long) %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
+    <%= render "shared/table", locals: { games: @games } %>
 
     <%= link_to 'View all generated boards', games_path, class: 'underline' %>
 

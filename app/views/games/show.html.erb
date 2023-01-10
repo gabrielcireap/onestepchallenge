@@ -20,18 +20,5 @@
     </div>
   </div>
 
-  <!--  Board representation-->
-  <div class="flex flex-col gap-y-1">
-    <% (0...@game.width).each { |i| %>
-      <div class="flex gap-x-1">
-        <% (0...@game.height).each { |j| %>
-          <% if @game.config.dig(i.to_s, j.to_s) %>
-            <%= image_tag 'bomb.svg', size: '32x32', alt: 'bomb-icon' %>
-          <% else %>
-            <div class="w-8 h-8 rounded-lg bg-gray-100"></div>
-          <% end %>
-        <% } %>
-      </div>
-    <% } %>
-  </div>
+  <%= render "shared/board", locals: { game: @game } %>
 </div>
