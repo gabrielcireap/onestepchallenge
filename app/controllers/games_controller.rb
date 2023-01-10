@@ -3,7 +3,6 @@
 require 'generator'
 
 class GamesController < ApplicationController
-  include GameHelper
   skip_before_action :verify_authenticity_token
 
   def index
@@ -14,14 +13,18 @@ class GamesController < ApplicationController
     @game = Game.find show_params[:id]
   end
 
+  def home
+    @games ||= Game.last_ordered(10)
+  end
+
   def create
-    game = Game.new **create_params
-    game.config = Generator.new(game.width, game.height, game.mines).board
-    if game.valid?
-      game.save!
-      redirect_to game_path(game.id)
+    @new_game = Game.new **create_params
+    if @new_game.valid?
+      @new_game.config = Generator.new(@new_game.width, @new_game.height, @new_game.mines).board
+      @new_game.save!
+      redirect_to game_path(@new_game.id)
     else
-      redirect_to root_path
+      render :home, games: home
     end
   end
 
@@ -33,6 +36,10 @@ class GamesController < ApplicationController
   end
 
   def create_params
-    params.permit %i[email name width height mines]
+    if params[:game]
+      params.require('game').permit(%i[email name width height mines])
+    else
+      params.permit(%i[email name width height mines])
+    end
   end
 end

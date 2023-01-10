@@ -3,9 +3,9 @@
     <div class="flex gap-x-1">
       <% row.each { |element| %>
         <% if element == 1%>
-          <%= image_tag 'bomb.svg', size: '32x32', alt: 'bomb-icon' %>
+          <%= image_tag 'bomb.svg', size: '20x20', alt: 'bomb-icon' %>
         <% else %>
-          <div class="w-8 h-8 rounded-lg bg-gray-100"></div>
+          <div class="rounded-lg bg-gray-100" style="width: 20px; height: 20px;"></div>
         <% end %>
       <% } %>
     </div>

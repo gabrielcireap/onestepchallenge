@@ -8,7 +8,7 @@ class Game < ApplicationRecord
   attribute :mines, :integer
   attribute :config, :integer, array: true
 
-  validates :email, :name, :width, :height, :mines, :config, presence: true
+  validates :email, :name, :width, :height, :mines, presence: true
   validates :width, :height, :mines, numericality: { only_integer: true, greater_than: 0 }
 
   scope :last_ordered, -> (number) { order(created_at: :desc).limit(number) }

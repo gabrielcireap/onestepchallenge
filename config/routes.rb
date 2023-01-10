@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :show, :create]
 
   # Defines the root path route ("/")
-  root "home#index"
+  root "games#home"
 end
